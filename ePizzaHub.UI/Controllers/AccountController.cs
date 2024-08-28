@@ -1,5 +1,7 @@
-﻿using ePizzaHub.Models;
+﻿using ePizzaHub.Core.Entities;
+using ePizzaHub.Models;
 using ePizzaHub.Services.Interfaces;
+using ePizzaHub.UI.Helper;
 using ePizzaHub.UI.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -76,6 +78,41 @@ namespace ePizzaHub.UI.Controllers
 
         public IActionResult UnAuthorize()
         {
+            return View();
+        }
+
+
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult SignUp(UserCreateModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = new User
+                {
+                    Email = model.Email,
+                    Password = model.Password,
+                    CreatedDate = DateTime.UtcNow,
+                    Name = model.Name,
+                    PhoneNumber = model.PhoneNumber
+
+                };
+                string role = "User";
+                var isCreated= _authservice.CreateUser(user, role);
+                if (isCreated)
+                {
+                    
+                    UserModel usermodel = _authservice.ValidateUser(model.Email, model.Password);
+                    GenerateTicket(usermodel);
+                    Marketingcloud.LowLatencyTriggersend(usermodel);
+                    return  RedirectToAction("Index", "Home", new { area = "User" });
+                }
+            }
             return View();
         }
     }

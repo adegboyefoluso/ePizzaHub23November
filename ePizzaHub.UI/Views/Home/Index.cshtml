@@ -2,41 +2,48 @@
 
 @{
     ViewData["Title"] = "Home Page";
+    Layout = "_FullLayout";
 }
 
 <div style="background-color:#1a5ca3">
-    <div class="row pt-4 pb-4">
-        <div class="col-sm-8 text-white">
-            <h1> epizza Hub's online Ordering Website!</h1>
-            <p class="pb-4">
-                Excellent Pizza delivered fast at your door step!
-            </p>
-            <p>
-                <a href="#heading" class="btn btn-success">ORDER ONLINE NOW</a>
-            </p>
-        </div>
-        <div class="col-sm-4">
-            <img src="~/Images///pizza-header.png" class="img-fluid"/>
-        </div>
-    </div>
-    
-</div>
-
-<h2 class="mt-5"> Our Menu</h2>
-<hr />
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-sm-3 mb-3">
-            <div class="card" >
-                <img src="@item.ImageUrl" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">@item.Name</h5>
-                    <p class="card-text">@item.Description</p>
-                    <a href="#" class="btn btn-primary">Add to Cart</a>
-                </div>
+    <div class="container">
+        <div class="row pt-4 pb-4 p-4">
+            <div class="col-sm-8 text-white">
+                <h1> epizza Hub's online Ordering Website!</h1>
+                <p class="pb-4">
+                    Excellent Pizza delivered fast at your door step!
+                </p>
+                <p>
+                    <a href="#heading" class="btn btn-success">ORDER ONLINE NOW</a>
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <img src="~/Images///pizza-header.png" class="img-fluid" />
             </div>
         </div>
-
-    }
+    </div>
+   
+    
 </div>
+<div class="container">
+    <h2 class="mt-5"> Our Menu</h2>
+    <hr />
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <img src="@item.ImageUrl" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+
