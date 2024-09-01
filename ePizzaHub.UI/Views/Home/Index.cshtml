@@ -25,7 +25,38 @@
    
     
 </div>
-<div class="container">
+
+<div class="container mt-4">
+    <h2>Pizza, Dessert and Beverages</h2>
+    <div class="row mt-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4 mb-3">
+                <div class="card">
+                    <img class="card-img-top" src="@item.ImageUrl" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @item.Name
+                            <span class="float-end">
+                                $@item.UnitPrice.ToString("##.#")
+                            </span>
+                        </h5>
+                        <p class="card-text">@item.Description</p>
+                        <p>
+                            <span class="pt-1 d-inline-block"> Size: Regular</span>
+                            <span class="float-end font-20">
+                                <a href="javascript:void(0)" onclick="AddToCart('@item.Id','@item.Name','@item.UnitPrice',1)" class="btn btn-outline-primary">Add To Cart</a>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+@* <div class="container">
     <h2 class="mt-5"> Our Menu</h2>
     <hr />
     <div class="row">
@@ -45,5 +76,5 @@
         }
     </div>
 </div>
-
+ *@
 

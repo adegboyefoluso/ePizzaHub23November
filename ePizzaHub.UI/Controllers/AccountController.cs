@@ -49,7 +49,7 @@ namespace ePizzaHub.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public IActionResult Login(LoginViewModel model, string? returnurl )
         {
             if(ModelState.IsValid)
             {
@@ -57,7 +57,13 @@ namespace ePizzaHub.UI.Controllers
                 if(user!=null)
                 {
                     GenerateTicket(user);
-                    if (user.Roles.Contains("Admin"))
+                    if (!string.IsNullOrEmpty(returnurl))
+                    {
+
+                        return RedirectToAction();
+                    }
+
+                    else if (user.Roles.Contains("Admin"))
                     {
                         return RedirectToAction("Index", "Home", new {area="Admin"});
                     } 
@@ -107,6 +113,7 @@ namespace ePizzaHub.UI.Controllers
                 if (isCreated)
                 {
                     
+
                     UserModel usermodel = _authservice.ValidateUser(model.Email, model.Password);
                     GenerateTicket(usermodel);
                     Marketingcloud.LowLatencyTriggersend(usermodel);

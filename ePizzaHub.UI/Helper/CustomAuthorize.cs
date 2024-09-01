@@ -7,6 +7,7 @@ namespace ePizzaHub.UI.Helper
     {
         public string Roles { get; set; }   
         public void OnAuthorization(AuthorizationFilterContext context)
+        
         {
             //check for authentication
             if(context.HttpContext.User.Identity.IsAuthenticated)
@@ -20,7 +21,8 @@ namespace ePizzaHub.UI.Helper
             }
             else
             {
-                context.Result = new RedirectToActionResult("Login", "Account", new { area = "" });
+                string returnurl = context.HttpContext.Request.Path;
+                context.Result = new RedirectToActionResult("Login", "Account", new { area = "", returnurl=returnurl });
             }
         }
     }
