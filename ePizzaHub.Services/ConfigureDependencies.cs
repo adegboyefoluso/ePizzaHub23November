@@ -29,7 +29,8 @@ namespace ePizzaHub.Services
             });
 
             //repository
-            services.AddScoped<IRepository<CartItem>,Repository<CartItem>>();   
+            services.AddScoped<IRepository<CartItem>,Repository<CartItem>>();
+            services.AddScoped<IRepository<PaymentDetail>, Repository<PaymentDetail>>();
 
 
             services.AddScoped<IRepository<User>, Repository<User>>();
@@ -39,11 +40,14 @@ namespace ePizzaHub.Services
             services.AddScoped<IRepository<Item>, Repository<Item>>();
 
             services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             //Services
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IItemService, ItemServices>();
             services.AddScoped<ICartServices, CartService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IOrderService, OrderService>();
 
         }
     }

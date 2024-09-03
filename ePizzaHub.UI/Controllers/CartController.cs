@@ -2,6 +2,7 @@
 using ePizzaHub.Models;
 using ePizzaHub.Services.Implementation;
 using ePizzaHub.Services.Interfaces;
+using ePizzaHub.UI.Helper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ePizzaHub.UI.Controllers
@@ -76,5 +77,27 @@ namespace ePizzaHub.UI.Controllers
             return Json(count);
         }
 
+        public IActionResult CheckOut()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CheckOut(AddressModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                CartModel cartmodel= _cartServices.GetCartDetails(Cartid); 
+                int userid= CurrentUser !=null? CurrentUser.Id : 0;
+                cartmodel.UserId = userid;
+                _cartServices.UpdateCart(Cartid, userid);
+
+                TempData.Set("Address",model);
+                TempData.Set("Cart", cartmodel);
+
+                return RedirectToAction("Index","Payment");
+            }
+            return View(model);
+        }
     }
 }

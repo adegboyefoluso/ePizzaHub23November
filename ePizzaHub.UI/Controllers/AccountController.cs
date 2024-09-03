@@ -119,6 +119,10 @@ namespace ePizzaHub.UI.Controllers
                     Marketingcloud.LowLatencyTriggersend(usermodel);
                     return  RedirectToAction("Index", "Home", new { area = "User" });
                 }
+                else
+                {
+                    return RedirectToAction("Login", "Account");
+                }
             }
             return View();
         }

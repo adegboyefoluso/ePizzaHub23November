@@ -24,14 +24,19 @@ namespace ePizzaHub.Repositories.Implementation
             try
             {
                 Role role = _db.Roles.Where(r => r.Name == Role).FirstOrDefault();
-                if (role != null)
+                var existinguser= _db.Users.Where(u=>u.Email==user.Email).FirstOrDefault();
+                if (existinguser==null)
                 {
-                    user.Roles.Add(role);
-                    user.Password= BCrypt.Net.BCrypt.HashPassword(user.Password); //hashingpassword
-                    _db.Users.Add(user);
-                    _db.SaveChanges();
-                    return true;
+                    if (role != null)
+                    {
+                        user.Roles.Add(role);
+                        user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password); //hashingpassword
+                        _db.Users.Add(user);
+                        _db.SaveChanges();
+                        return true;
+                    }
                 }
+               
             }
             catch (Exception ex)
             {
